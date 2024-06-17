@@ -116,7 +116,16 @@ void courseManagement::userInput() {
 		cin >> newCourse.credits;
 		//
 
-		cout << "Enter grade(0.0-4.0):" << endl;
+	for (const auto& semester : semesters) {
+		// Find the first course in this semester to determine the year
+		for (const auto& course : courses) {
+			if (course.semester == semester) {
+				calculateGpa(semester, course.year);
+				break;  // Stop after calculating GPA for this semester-year pair
+			}
+		}
+	}
+}
 		
 		cin >> newCourse.grades;
 
