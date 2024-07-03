@@ -190,9 +190,20 @@ void courseManagement::storeFileData(const double& cgpa ) {
 		
 		
 	}
+	// Collect unique semester-year combinations
+	set<pair<string, int>> semesterYearCombinations;
+	for (const auto& course : allCourses) {
+		semesterYearCombinations.insert(make_pair(course.semester, course.year));
+	}
+
+	// Iterate over unique combinations and calculate/display GPA
+	for (const auto& semYear : semesterYearCombinations) {
+		double gpa = calculateGpa(semYear.first, semYear.second);
+		outFile << "GPA for: " << semYear.first << "(" << semYear.second << "): "
+			<< fixed << setprecision(2) << left << setw(6) << gpa << endl;
+	}
 	
-	
-	
+	/*
 	//fix the one below still get repeat code during output of file
 	for (const auto& course : allCourses) {
 		
@@ -202,6 +213,7 @@ void courseManagement::storeFileData(const double& cgpa ) {
 			<< fixed << setprecision(2) << left << setw(6) << gpa << endl;
 
 	}
+	*/
 	outFile << "CGPA: " << fixed << setprecision(2) << cgpa << endl;
 
 	outFile.close();
